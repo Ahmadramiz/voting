@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ساعت محلی بر اساس منطقه</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            text-align: center;
+            margin-top: 100px;
+        }
+        h1 {
+            color: #007BFF;
+        }
+        select, #time {
+            font-size: 18px;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>ساعت محلی بر اساس منطقه</h1>
+    <label for="timezone">منطقه زمانی را انتخاب کنید:</label>
+    <select id="timezone">
+        <option value="Asia/Kabul">کابل</option>
+        <option value="Asia/Tehran">تهران</option>
+        <option value="Asia/Dubai">دوبی</option>
+        <option value="Europe/London">لندن</option>
+        <option value="America/New_York">نیویورک</option>
+    </select>
+    <div id="time">زمان اینجا نمایش داده می‌شود</div>
+
+    <script>
+        const timeZoneSelect = document.getElementById("timezone");
+        const timeDisplay = document.getElementById("time");
+
+        function updateTime() {
+            const selectedTimeZone = timeZoneSelect.value;
+            const currentTime = new Date().toLocaleString("fa-IR", {
+                timeZone: selectedTimeZone,
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            });
+            timeDisplay.textContent = `زمان: ${currentTime}`;
+        }
+
+        timeZoneSelect.addEventListener("change", updateTime);
+
+        // به‌روز کردن زمان هر ثانیه
+        setInterval(updateTime, 1000);
+
+        // تنظیم زمان اولیه
+        updateTime();
+    </script>
+</body>
+</html>
